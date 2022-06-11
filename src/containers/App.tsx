@@ -1,16 +1,18 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useAppSelector } from '../hooks';
 import { burgerActions } from '../store/actions/actions.creator';
 import {
 	IngredientActionPayload,
 	IngredientsItem,
-	TBurgerState,
 } from '../store/Burger.types';
+import { selectBurgerIngredients } from '../store/reducer/burger.duck';
 
 const App = (props: any) => {
+	const burgerIngredients = useAppSelector(selectBurgerIngredients);
+
 	useEffect(() => {
-		// console.log(props);
 		props.getIngredients();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -19,8 +21,8 @@ const App = (props: any) => {
 		<div>
 			<h1>Burger Marker App!</h1>
 			<ul>
-				{props.ingredients &&
-					props.ingredients.map((ingredient: IngredientsItem) => (
+				{burgerIngredients &&
+					burgerIngredients.map((ingredient: IngredientsItem) => (
 						<li key={ingredient._id}>
 							{ingredient.label} ({ingredient.price}) -{' '}
 							{ingredient.type}{' '}
@@ -48,9 +50,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 	getIngredients: () => dispatch(burgerActions.getItems.init()),
 });
 
-const mapStateToProps = (state: TBurgerState) => ({
-	ingredients: state.burger.ingredients,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
-
+export default connect(null, mapDispatchToProps)(App);
