@@ -10,6 +10,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { SagaIterator } from 'redux-saga';
 import { IngredientActionPayload, IngredientsItem } from '../Burger.types';
 import { burgerActions } from './actions.creator';
+import { fetchItemsRequest } from '../Burger.utils';
+import { BURGER_INGREDIENTS_ENDPOINT } from '../Burger.constants';
 
 export function* onAddedIngredientInit(
 	action: PayloadAction<IngredientActionPayload>
@@ -52,16 +54,15 @@ export function* onRemovedIngredientSuccess(
 
 export function* onGetItemsInit(): SagaIterator<void> {
 	// console.log('[burger.duck.ts] [onGetItemsInit]');
-	yield put(
-		burgerActions.getItems.success([
-			{
-				_id: 101,
-				label: 'test',
-				price: 10,
-				type: 'salad',
-			},
-		])
-	);
+	try {
+		const response: IngredientsItem[] = yield call(
+			fetchItemsRequest,
+			BURGER_INGREDIENTS_ENDPOINT
+		);
+		yield put(burgerActions.getItems.success(response));
+	} catch (error) {
+		console.log(error);
+	}
 }
 
 export function* onGetItemsSuccess(
@@ -97,14 +98,10 @@ export function* onIngredientsWatcher(): SagaIterator<void> {
 	// console.log('[burguer.duck.ts] [onIngredientsWatcher]');
 	yield fork(onAddedIngredientInitSaga);
 
-	yield takeEvery(
-		burgerActions.addItem.success.type,
-		onAddedIngredientSuccess
-	);
+	yield takeEvery(burgerActions.addItem.success.type, onAddedIngredientSuccess);
 	yield takeEvery(
 		burgerActions.removeItem.success.type,
 		onRemovedIngredientSuccess
 	);
 	yield takeEvery(burgerActions.getItems.success.type, onGetItemsSuccess);
 }
-
