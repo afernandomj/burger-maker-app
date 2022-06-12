@@ -1,38 +1,34 @@
+import { createReducer, createSelector } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { burgerActions } from '../actions/actions.creator';
-import { TIngredientsData } from '../Burger.types';
+import { TBurgerState, TIngredientsData } from '../Burger.types';
 
 const initialState: TIngredientsData = {
 	ingredients: [],
 };
 
-const burgerReducer = (state = initialState, action: any): TIngredientsData => {
-	// console.log(state, action);
-	if (action.type === burgerActions.addItem.set.type) {
-		return {
-			...state,
-			ingredients: [...state.ingredients, action.payload],
-		};
-	} else if (action.type === burgerActions.removeItem.set.type) {
-		return {
-			...state,
-			ingredients: state.ingredients.filter(
-				(item) => item._id !== action.payload._id
-			),
-		};
-	} else if (action.type === burgerActions.getItems.set.type) {
-		return {
-			...state,
-			ingredients: action.payload,
-		};
-	} else {
-		return state;
-	}
-};
+const burgerReducer = createReducer(initialState, (builder) => {
+	builder
+		.addCase(burgerActions.addItem.set, (state, action) => {
+			state.ingredients = [...state.ingredients, action.payload];
+		})
+		.addCase(burgerActions.removeItem.set, (state, action) => {
+			state.ingredients = state.ingredients.filter(
+				(ingredient) => ingredient._id !== action.payload._id
+			);
+		})
+		.addCase(burgerActions.getItems.set, (state, action) => {
+			state.ingredients = action.payload;
+		});
+});
 
 const rootReducer = combineReducers({
 	burger: burgerReducer,
 });
 
-export default rootReducer;
+export const selectBurgerIngredients = createSelector(
+	(state: TBurgerState) => state.burger,
+	(burger) => burger.ingredients
+);
 
+export default rootReducer;
