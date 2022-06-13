@@ -1,0 +1,20 @@
+.LogoWrapper {
+  margin: 0 15px;
+}
+
+.Logo {
+  width: 41px;
+  height: 26px;
+  padding: 4px 6px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.LogoInner {
+  width: 41px;
+  height: 26px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
