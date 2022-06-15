@@ -1,0 +1,27 @@
+.BurgerIngredient {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.BreadTop {
+  width: 277px;
+  height: 85px;
+}
+
+.BreadBottom {
+  width: 275px;
+  height: 40px;
+}
+
+.Meat, .Bacon, .Salad {
+  width: 298px;
+  height: 19px;
+  margin: 2px;
+}
+
+.Bacon, .Cheese {
+  width: 298px;
+  height: 10px;
+  margin: 2px;
+}
