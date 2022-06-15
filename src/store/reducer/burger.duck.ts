@@ -49,4 +49,10 @@ export const selectBurgerError = createSelector(
 	(burger) => burger.error
 );
 
+export const selectTotalPrice = createSelector(
+	(state: TBurgerState) => state.burger.ingredients,
+	(ingredients) =>
+		ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0)
+);
+
 export default rootReducer;
