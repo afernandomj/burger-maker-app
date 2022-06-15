@@ -1,23 +1,35 @@
+import { useAppSelector } from '../../hooks';
+import { IngredientsItem } from '../../store/Burger.types';
+import { selectTotalPrice } from '../../store/reducer/burger.duck';
 import Button from '../UI/Button/Button';
+import ButtonControl from '../UI/ButtonControl/ButtonControl';
 
 import buildControlsStyles from './BuildControls.module.css';
 
-const BuildControls = () => {
+type TBuildControls = {
+	ingredients: IngredientsItem[];
+};
+
+const BuildControls = ({ ingredients }: TBuildControls) => {
+	const ingredientTotalPrice = useAppSelector(selectTotalPrice);
 	return (
 		<div className={buildControlsStyles.BuildControlsWrapper}>
 			<p className='text-center'>
 				You'll have to pay for that:{' '}
-				<span className='text-emphasis'>$4,99 USD</span>
+				<span className='text-emphasis'>
+					${ingredientTotalPrice.toLocaleString()} USD
+				</span>
 			</p>
 			{/* TODO: Implement Controls component */}
-			<div>
-				<ul>
-					<li>Onion</li>
-					<li>Bacon</li>
-					<li>Meat</li>
-					<li>Cheese</li>
-				</ul>
-			</div>
+			{ingredients.map((ingredient) => (
+				<ButtonControl
+					key={ingredient._id}
+					label={ingredient.label}
+					removed={() => {}}
+					added={() => {}}
+					disabled={false}
+				/>
+			))}
 			<Button isDisabled={false} clickedHandler={() => {}}>
 				Place order!
 			</Button>
