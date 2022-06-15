@@ -11,6 +11,8 @@ export interface IngredientsItem {
 
 export type TIngredientsData = {
 	ingredients: IngredientsItem[];
+	loading: boolean;
+	error: string;
 };
 export type TIngredientsState = TIngredientsData;
 export type TBurgerState = {

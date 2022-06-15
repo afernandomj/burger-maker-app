@@ -55,13 +55,14 @@ export function* onRemovedIngredientSuccess(
 export function* onGetItemsInit(): SagaIterator<void> {
 	// console.log('[burger.duck.ts] [onGetItemsInit]');
 	try {
+		yield put(burgerActions.loading(true));
 		const response: IngredientsItem[] = yield call(
 			fetchItemsRequest,
 			BURGER_INGREDIENTS_ENDPOINT
 		);
 		yield put(burgerActions.getItems.success(response));
 	} catch (error) {
-		console.log(error);
+		yield put(burgerActions.error((error as Error).message));
 	}
 }
 
@@ -69,7 +70,12 @@ export function* onGetItemsSuccess(
 	action: PayloadAction<IngredientsItem[]>
 ): SagaIterator<void> {
 	// console.log('[burger.duck.ts] [onGetItemsSuccess]');
-	yield put(burgerActions.getItems.set(action.payload));
+	yield put(burgerActions.loading(false));
+	if (action.payload.length > 0) {
+		yield put(burgerActions.getItems.set(action.payload));
+	} else {
+		yield put(burgerActions.error('No items found'));
+	}
 }
 
 const BURGUER_ACTION_HANDLERS = {

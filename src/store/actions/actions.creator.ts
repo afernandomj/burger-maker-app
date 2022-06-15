@@ -3,6 +3,8 @@ import { BURGER_ACTION_BASE } from '../Burger.constants';
 import { IngredientActionPayload, IngredientsItem } from '../Burger.types';
 
 export const burgerActions = {
+	error: createAction<string>(`${BURGER_ACTION_BASE}/ingredient/error`),
+	loading: createAction<boolean>(`${BURGER_ACTION_BASE}/ingredients/loading`),
 	addItem: {
 		init: createAction<IngredientActionPayload>(
 			`${BURGER_ACTION_BASE}/add-ingredient/init`
