@@ -16,6 +16,10 @@ body, html {
   text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .text-emphasis {
   font-weight: 700;
 }
