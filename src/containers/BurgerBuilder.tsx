@@ -1,6 +1,7 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import BuildControls from '../components/BuildControls/BuildControls';
 import Burger from '../components/Burger/Burger';
 import { useAppSelector } from '../hooks';
 import { burgerActions } from '../store/actions/actions.creator';
@@ -16,7 +17,16 @@ const BurgerBuilder = ({ getIngredients }: TBurgerBuilderProps) => {
 
 	const burgerIngredients = useAppSelector(selectBurgerIngredients);
 
-	return <Burger ingredients={burgerIngredients} />;
+	return (
+		<>
+			<Burger ingredients={burgerIngredients} />
+			<BuildControls
+				ingredients={burgerIngredients}
+				onAddedIngredient={() => {}}
+				onRemovedIngredient={() => {}}
+			/>
+		</>
+	);
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
