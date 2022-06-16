@@ -1,22 +1,46 @@
 import { MouseEventHandler } from 'react';
 
+import buttonControlStyles from './ButtonControl.module.css';
+
 type TButtonControl = {
 	label: string;
-	removed: MouseEventHandler<HTMLButtonElement>;
+	onRemoved: MouseEventHandler<HTMLButtonElement>;
 	disabled: boolean;
-	added: MouseEventHandler<HTMLButtonElement>;
+	onAdded: MouseEventHandler<HTMLButtonElement>;
+	count: number;
 };
 
-const ButtonControl = ({ label, removed, added, disabled }: TButtonControl) => {
+const ButtonControl = ({
+	label,
+	onRemoved,
+	onAdded,
+	disabled,
+	count,
+}: TButtonControl) => {
 	return (
-		// TODO: Add styles for ButtonControl
-		<div className='ButtonControl'>
-			<div className='Label'>{label}</div>
-			<button onClick={removed} disabled={disabled}>
-				Menos
+		<div className={buttonControlStyles.ButtonControl}>
+			<div className={[buttonControlStyles.Label, 'text-right'].join(' ')}>
+				{label}
+			</div>
+			<button
+				className={[
+					buttonControlStyles.Button,
+					buttonControlStyles.ButtonPrimary,
+				].join(' ')}
+				onClick={onRemoved}
+				disabled={disabled}
+			>
+				Remove
 			</button>
-			<button onClick={added} disabled={disabled}>
-				Mas
+			<button
+				className={[
+					buttonControlStyles.Button,
+					buttonControlStyles.ButtonPrimary,
+				].join(' ')}
+				onClick={onAdded}
+				disabled={count >= 0 ? false : true}
+			>
+				Add
 			</button>
 		</div>
 	);

@@ -1,0 +1,37 @@
+.ButtonControl {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 9px 0px;
+}
+
+.Label {
+  width: 90px;
+  margin: 0px 12px;
+}
+
+.Button {
+  margin: 0px 12px;
+  padding: 6px 18px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.ButtonPrimary {
+  color: #E3E2E2;
+  background-color: #9B7002;
+}
+
+.ButtonPrimary:active {
+  background-color: #9e7d29;
+}
+
+.ButtonPrimary:disabled {
+  color: #969696;
+  background-color: #DDD1B3;
+  border: 1.5px solid #D4A21F;
+  cursor: default;
+}
