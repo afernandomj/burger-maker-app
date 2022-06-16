@@ -15,11 +15,22 @@ const Burger = ({ ingredients }: TBurgerProps) => {
 	const isLoading = useAppSelector(selectBurgerLoading);
 	const error = useAppSelector(selectBurgerError);
 	let updatedIngredients = ingredients
-		.map((ingredient) =>
-			ingredient.count > 0 ? (
-				<BurgerIngredient key={ingredient._id} type={ingredient.type} />
-			) : null
-		)
+		.map((ingredient) => {
+			let moreIngredients: JSX.Element[] | null = [];
+			if (ingredient.count > 0) {
+				for (let i = 0; i < ingredient.count; i++) {
+					moreIngredients.push(
+						<BurgerIngredient
+							key={`${ingredient._id}-${i}`}
+							type={ingredient.type}
+						/>
+					);
+				}
+			} else {
+				moreIngredients = null;
+			}
+			return moreIngredients;
+		})
 		.filter((ingredient) => ingredient !== null);
 	const isIngredientsEmpty = updatedIngredients.length === 0;
 	const loadingText = isLoading ? 'Loading...' : '';
