@@ -7,6 +7,7 @@ export interface IngredientsItem {
 	label: string;
 	price: number;
 	type: string;
+	count: number;
 }
 
 export type TIngredientsData = {

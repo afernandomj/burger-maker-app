@@ -24,6 +24,7 @@ export function* onAddedIngredientInit(
 			label: 'test',
 			price: 10,
 			type: 'salad',
+			count: 1,
 		})
 	);
 }
