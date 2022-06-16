@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import { useAppSelector } from '../../hooks';
 import { IngredientsItem } from '../../store/Burger.types';
 import { selectTotalPrice } from '../../store/reducer/burger.duck';
@@ -8,9 +9,15 @@ import buildControlsStyles from './BuildControls.module.css';
 
 type TBuildControls = {
 	ingredients: IngredientsItem[];
+	onAddedIngredient: (id: number) => void;
+	onRemovedIngredient: (id: number) => void;
 };
 
-const BuildControls = ({ ingredients }: TBuildControls) => {
+const BuildControls = ({
+	ingredients,
+	onAddedIngredient,
+	onRemovedIngredient,
+}: TBuildControls) => {
 	const ingredientTotalPrice = useAppSelector(selectTotalPrice);
 	return (
 		<div className={buildControlsStyles.BuildControlsWrapper}>
@@ -20,16 +27,18 @@ const BuildControls = ({ ingredients }: TBuildControls) => {
 					${ingredientTotalPrice.toLocaleString()} USD
 				</span>
 			</p>
-			{/* TODO: Implement Controls component */}
-			{ingredients.map((ingredient) => (
-				<ButtonControl
-					key={ingredient._id}
-					label={ingredient.label}
-					removed={() => {}}
-					added={() => {}}
-					disabled={false}
-				/>
-			))}
+			<div className={buildControlsStyles.BuildControlsAction}>
+				{ingredients.map((ingredient) => (
+					<ButtonControl
+						key={ingredient._id}
+						label={ingredient.label}
+						onRemoved={() => onRemovedIngredient(ingredient._id)}
+						onAdded={() => onAddedIngredient(ingredient._id)}
+						count={ingredient.count}
+						disabled={ingredient.count && ingredient.count > 0 ? false : true}
+					/>
+				))}
+			</div>
 			<Button isDisabled={false} clickedHandler={() => {}}>
 				Place order!
 			</Button>
