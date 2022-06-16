@@ -9,10 +9,10 @@ export const burgerActions = {
 		init: createAction<IngredientActionPayload>(
 			`${BURGER_ACTION_BASE}/add-ingredient/init`
 		),
-		success: createAction<IngredientsItem>(
+		success: createAction<IngredientActionPayload>(
 			`${BURGER_ACTION_BASE}/add-ingredient/success`
 		),
-		set: createAction<IngredientsItem>(
+		set: createAction<IngredientActionPayload>(
 			`${BURGER_ACTION_BASE}/add-ingredient/set`
 		),
 	},

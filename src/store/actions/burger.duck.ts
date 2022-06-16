@@ -18,15 +18,7 @@ export function* onAddedIngredientInit(
 ): SagaIterator<void> {
 	// console.log('[burger.duck.ts] [onAddedIngredient]');
 	// const response = yield call(saveItemRequest, action.payload);
-	yield put(
-		burgerActions.addItem.success({
-			_id: action.payload._id,
-			label: 'test',
-			price: 10,
-			type: 'salad',
-			count: 1,
-		})
-	);
+	yield put(burgerActions.addItem.success({ _id: action.payload._id }));
 }
 
 export function* onAddedIngredientSuccess(

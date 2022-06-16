@@ -1,4 +1,4 @@
-import { createReducer, createSelector } from '@reduxjs/toolkit';
+import { createReducer, createSelector, current } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { burgerActions } from '../actions/actions.creator';
 import { TBurgerState, TIngredientsData } from '../Burger.types';
@@ -12,12 +12,16 @@ const initialState: TIngredientsData = {
 const burgerReducer = createReducer(initialState, (builder) => {
 	builder
 		.addCase(burgerActions.addItem.set, (state, action) => {
-			state.ingredients = [...state.ingredients, action.payload];
+			const findIngredient = state.ingredients.find(
+				(item) => item._id === action.payload._id
+			);
+			findIngredient && findIngredient.count++;
 		})
 		.addCase(burgerActions.removeItem.set, (state, action) => {
-			state.ingredients = state.ingredients.filter(
-				(ingredient) => ingredient._id !== action.payload._id
+			const findIngredient = state.ingredients.find(
+				(item) => item._id === action.payload._id
 			);
+			findIngredient && findIngredient.count--;
 		})
 		.addCase(burgerActions.getItems.set, (state, action) => {
 			state.ingredients = action.payload;
