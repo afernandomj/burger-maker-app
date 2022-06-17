@@ -33,13 +33,15 @@ const Burger = ({ ingredients }: TBurgerProps) => {
 		})
 		.filter((ingredient) => ingredient !== null);
 	const isIngredientsEmpty = updatedIngredients.length === 0;
-	const loadingText = isLoading ? 'Loading...' : '';
+	const loadingText = isLoading ? 'Loading...' : null;
 	let errorMessage = null;
 	if (!isLoading && isIngredientsEmpty) {
 		errorMessage = (
 			<>
-				<p>{error}</p>
-				<p>Get started to add some ingredients to build your burger!</p>
+				{error && <p>{error}</p>}
+				{!error && (
+					<p>Get started to add some ingredients to build your burger!</p>
+				)}
 			</>
 		);
 	}

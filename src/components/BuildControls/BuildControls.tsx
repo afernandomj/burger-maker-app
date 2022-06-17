@@ -1,7 +1,9 @@
-import { MouseEventHandler } from 'react';
 import { useAppSelector } from '../../hooks';
 import { IngredientsItem } from '../../store/Burger.types';
-import { selectTotalPrice } from '../../store/reducer/burger.duck';
+import {
+	selectBurgerError,
+	selectTotalPrice,
+} from '../../store/reducer/burger.duck';
 import Button from '../UI/Button/Button';
 import ButtonControl from '../UI/ButtonControl/ButtonControl';
 
@@ -19,6 +21,7 @@ const BuildControls = ({
 	onRemovedIngredient,
 }: TBuildControls) => {
 	const ingredientTotalPrice = useAppSelector(selectTotalPrice);
+	const error = useAppSelector(selectBurgerError);
 	return (
 		<div className={buildControlsStyles.BuildControlsWrapper}>
 			<p className='text-center'>
@@ -28,6 +31,7 @@ const BuildControls = ({
 				</span>
 			</p>
 			<div className={buildControlsStyles.BuildControlsAction}>
+				{error && <p>{error}</p>}
 				{ingredients.map((ingredient) => (
 					<ButtonControl
 						key={ingredient._id}
@@ -39,9 +43,11 @@ const BuildControls = ({
 					/>
 				))}
 			</div>
-			<Button isDisabled={false} clickedHandler={() => {}}>
-				Place order!
-			</Button>
+			{!error && (
+				<Button isDisabled={false} clickedHandler={() => {}}>
+					Place order!
+				</Button>
+			)}
 		</div>
 	);
 };
