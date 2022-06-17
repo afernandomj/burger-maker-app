@@ -1,4 +1,4 @@
-import { createReducer, createSelector, current } from '@reduxjs/toolkit';
+import { createReducer, createSelector } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { burgerActions } from '../actions/actions.creator';
 import { TBurgerState, TIngredientsData } from '../Burger.types';
@@ -6,7 +6,7 @@ import { TBurgerState, TIngredientsData } from '../Burger.types';
 const initialState: TIngredientsData = {
 	ingredients: [],
 	loading: false,
-	error: '',
+	error: null,
 };
 
 const burgerReducer = createReducer(initialState, (builder) => {
@@ -56,7 +56,9 @@ export const selectBurgerError = createSelector(
 export const selectTotalPrice = createSelector(
 	(state: TBurgerState) => state.burger.ingredients,
 	(ingredients) =>
-		ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0)
+		ingredients.reduce((sum, ingredient) => {
+			return sum + ingredient.price * ingredient.count;
+		}, 0)
 );
 
 export default rootReducer;
