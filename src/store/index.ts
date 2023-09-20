@@ -2,8 +2,8 @@ import { configureStore, Middleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { createLogger } from 'redux-logger';
 
-import reducer from './reducer/burger.duck';
-import { onIngredientsWatcher } from './actions/burger.duck';
+import reducer from './reducer';
+import { onItemsWatch } from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 const isDev = process.env.NODE_ENV === 'development';
@@ -23,7 +23,7 @@ export const store = configureStore({
 	middleware: updatedMiddlewares,
 });
 
-sagaMiddleware.run(onIngredientsWatcher);
+sagaMiddleware.run(onItemsWatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch; 

@@ -10,13 +10,12 @@ export interface IngredientsItem {
 	count: number;
 }
 
-export type TIngredientsData = {
+export type IngredientsDataType = {
 	ingredients: IngredientsItem[];
 	loading: boolean;
 	error: string | null;
 };
-export type TIngredientsState = TIngredientsData;
-export type TBurgerState = {
-	burger: TIngredientsState;
+export type IngredientsStateType = IngredientsDataType;
+export type BurgerStateType = {
+	burger: IngredientsStateType;
 };
-

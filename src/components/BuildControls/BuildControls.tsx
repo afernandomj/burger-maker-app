@@ -1,9 +1,9 @@
 import { useAppSelector } from '../../hooks';
-import { IngredientsItem } from '../../store/Burger.types';
+import { IngredientsItem } from '../../types/store';
 import {
 	selectBurgerError,
 	selectTotalPrice,
-} from '../../store/reducer/burger.duck';
+} from '../../store/reducer/selectors';
 import Button from '../UI/Button/Button';
 import ButtonControl from '../UI/ButtonControl/ButtonControl';
 

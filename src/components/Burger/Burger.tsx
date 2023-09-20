@@ -1,11 +1,11 @@
 import burgerStyles from './Burger.module.css';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
-import { IngredientsItem } from '../../store/Burger.types';
+import { IngredientsItem } from '../../types/store';
 import { useAppSelector } from '../../hooks';
 import {
 	selectBurgerError,
 	selectBurgerLoading,
-} from '../../store/reducer/burger.duck';
+} from '../../store/reducer/selectors';
 
 type TBurgerProps = {
 	ingredients: IngredientsItem[];

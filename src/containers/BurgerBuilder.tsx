@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import BuildControls from '../components/BuildControls/BuildControls';
 import Burger from '../components/Burger/Burger';
 import { useAppSelector } from '../hooks';
-import { burgerActions } from '../store/actions/actions.creator';
-import { IngredientActionPayload } from '../store/Burger.types';
-import { selectBurgerIngredients } from '../store/reducer/burger.duck';
+import * as burgerActions from '../store/actions/Creator';
+import { IngredientActionPayload } from '../types/store';
+import { selectBurgerIngredients } from '../store/reducer/selectors';
 
 type TBurgerBuilderProps = ReturnType<typeof mapDispatchToProps>;
 
@@ -36,10 +36,10 @@ const BurgerBuilder = ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	addIngredient: (payload: IngredientActionPayload) =>
-		dispatch(burgerActions.addItem.init(payload)),
+		dispatch(burgerActions.addItem(payload)),
 	removeIngredient: (payload: IngredientActionPayload) =>
-		dispatch(burgerActions.removeItem.init(payload)),
-	getIngredients: () => dispatch(burgerActions.getItems.init()),
+		dispatch(burgerActions.removeItem(payload)),
+	getIngredients: () => dispatch(burgerActions.getItems()),
 });
 
 export default connect(null, mapDispatchToProps)(BurgerBuilder);

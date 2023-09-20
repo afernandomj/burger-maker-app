@@ -1,5 +1,5 @@
-import { BURGER_API_BASE } from './Burger.constants';
-import { IngredientsItem } from './Burger.types';
+import { BURGER_API_BASE } from '../constants';
+import { IngredientsItem } from '../types/store';
 
 export const fetchItemsRequest = (endpoint: string): Promise<Response> =>
 	fetch(`${BURGER_API_BASE}/${endpoint}.json`)
